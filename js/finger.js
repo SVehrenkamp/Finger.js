@@ -4,6 +4,11 @@ var Finger = function(el){
 	this.el = el;
 
 	//Private instances
+	
+	/**
+	 * swipe right, left, up and down swipe gestures
+	 * @return {method} broadcastEvent(eventDescription)
+	 */
 	var swipe = function(){
 		var start,
 			end,
@@ -20,6 +25,7 @@ var Finger = function(el){
 			if (e.originalEvent.changedTouches) {
 				var touchX = e.originalEvent.changedTouches[0].pageX;
 			}
+
 			end = touchX ? touchX : e.pageX;
 
 			diff = (end-start);
@@ -34,6 +40,40 @@ var Finger = function(el){
 		});
 	};
 
+	/**
+	 * Longpress event fires after 1.5s
+	 * @return {method} broadcastEvent(eventDescription)
+	 */
+	var longpress = function(){
+		var press = {},
+			diff = {},
+			duration;
+
+		this.el.on('touchstart mousedown', function(e){
+			if (e.originalEvent.changedTouches) {
+				var touchX = e.originalEvent.changedTouches[0].pageX;
+				var touchY = e.originalEvent.changedTouches[0].pageY;
+			}
+
+			press.x = touchX ? touchX : e.pageX;
+			press.y = touchY ? touchY : e.pageY;
+			press.time = e.timeStamp;
+
+			var timer = setInterval(function(){
+				var time = new Date();
+				time = time.getTime();
+				if ((time - press.time) < 1000) {
+					return;
+				} else {
+					broadcastEvent('longpress');
+					clearInterval(timer);
+					return;
+				}
+			}, 10);
+
+		});
+	}
+
 	var broadcastEvent = function(eventName, start, end, diff){
 		var e = $.Event(eventName);
 		this.el.trigger(e);
@@ -41,6 +81,7 @@ var Finger = function(el){
 	};
 	var attachEvents = function(){
 		swipe();
+		longpress();
 	}
 	
 	var init = function(){

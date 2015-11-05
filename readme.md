@@ -18,6 +18,13 @@ Only basic events are currently supported (but pull requests are accepted!)
 | ------------- |:---------------:|
 | Swipe Left    | ```swipeleft``` |
 | Swipe Right   | ```swiperight``` |
+| Long Press    | ```longpress``` |
+
+#### Swipe
+Swipe detection is by default configured to a difference of ```20px```.  Threshold configuration will be supported soon.
+
+#### Long Press
+Longpress detection by default is configured to ```1000ms```.  Threshold configuration will be supported soon.
 
 ### Binding to events
 Binding to events is similar to the Hammer.js and jQuery api
