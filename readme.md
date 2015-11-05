@@ -30,6 +30,8 @@ finger.on('swipeleft', function(){
 
 ## License
 
+The MIT License
+
 Copyright (c) 2015 Scott Vehrenkamp, [scott@vehrenkamp.com](mailto:scott@vehrenkamp.com)
 
 
