@@ -47,7 +47,8 @@ var Finger = function(el){
 	var longpress = function(){
 		var press = {},
 			diff = {},
-			duration;
+			duration,
+			timer;
 
 		this.el.on('touchstart mousedown', function(e){
 			if (e.originalEvent.changedTouches) {
@@ -59,7 +60,7 @@ var Finger = function(el){
 			press.y = touchY ? touchY : e.pageY;
 			press.time = e.timeStamp;
 
-			var timer = setInterval(function(){
+			timer = setInterval(function(){
 				var time = new Date();
 				time = time.getTime();
 				if ((time - press.time) < 1000) {
@@ -71,6 +72,9 @@ var Finger = function(el){
 				}
 			}, 10);
 
+		});
+		this.el.on('touchend mouseup', function(e){
+			clearInterval(timer);
 		});
 	}
 
