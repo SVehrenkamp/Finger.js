@@ -15,6 +15,7 @@ var Finger = function(el){
 			diff;
 
 		this.el.on('touchstart mousedown', function(e){
+			e.preventDefault();
 			if (e.originalEvent.changedTouches) {
 				var touchX = e.originalEvent.changedTouches[0].pageX;
 			}
@@ -51,6 +52,7 @@ var Finger = function(el){
 			timer;
 
 		this.el.on('touchstart mousedown', function(e){
+			e.preventDefault();
 			if (e.originalEvent.changedTouches) {
 				var touchX = e.originalEvent.changedTouches[0].pageX;
 				var touchY = e.originalEvent.changedTouches[0].pageY;
